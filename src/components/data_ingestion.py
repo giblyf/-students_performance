@@ -3,7 +3,7 @@ import sys
 
 from src.exception import CustomException
 from src.logger import logging
-import pandas as pd 
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
@@ -22,7 +22,7 @@ class DataIngestionConfig:
 class DataIngestion:
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
-    
+
     def initiate_data_ingestion(self):
         # Логирование входа в метод ввода данных
         logging.info('Enter the data ingestion method or component')
@@ -32,20 +32,25 @@ class DataIngestion:
             logging.info('Read the dataset as dataframe')
             # Чтение CSV-файла и создание фрейма данных
             df = pd.read_csv('notebook/data/stud.csv')
- 
+
             # Создание директории для обучающего набора данных (если не существует)
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
+            os.makedirs(os.path.dirname(
+                self.ingestion_config.train_data_path), exist_ok=True)
             # Сохранение данных в обучающий набор в формате CSV
-            df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
+            df.to_csv(self.ingestion_config.raw_data_path,
+                      index=False, header=True)
 
             # Логирование инициации разделения на обучающий и тестовый наборы
             logging.info('Train test split initiated')
             # Разделение данных на обучающий и тестовый набор
-            train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
-            
+            train_set, test_set = train_test_split(
+                df, test_size=0.2, random_state=42)
+
             # Сохранение обучающего и тестового наборов в формате CSV
-            train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
-            test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
+            train_set.to_csv(
+                self.ingestion_config.train_data_path, index=False, header=True)
+            test_set.to_csv(self.ingestion_config.test_data_path,
+                            index=False, header=True)
 
             # Логирование успешного завершения ввода данных
             logging.info('Ingestion of the data is completed')
@@ -58,12 +63,12 @@ class DataIngestion:
         except Exception as e:
             # В случае ошибки создание пользовательского исключения с логированием
             raise CustomException(e, sys)
-        
+
+
 if __name__ == '__main__':
     obj = DataIngestion()
     train_data_path, test_data_path = obj.initiate_data_ingestion()
 
     data_transformer = DataTransformation()
-    preprocessor = data_transformer.initiate_data_transormation(train_data_path, test_data_path)
-
-
+    preprocessor = data_transformer.initiate_data_transormation(
+        train_data_path, test_data_path)

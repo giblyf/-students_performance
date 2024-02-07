@@ -3,21 +3,23 @@ from typing import List
 
 HYPEN_E_DOT = '-e .'
 
+
 # Функция для получения списка зависимостей из файла requirements.txt
-def get_requirements(file_path:str)->List[str]:
+def get_requirements(file_path: str) -> List[str]:
     requirements = []
     with open(file_path) as file:
         # Чтение каждой строки из файла и удаление символа новой строки
         requirements = [req.replace('\n', '') for req in file.readlines()]
-   
+
     # Удаление строки "-e ." из списка зависимостей, если она присутствует
     if HYPEN_E_DOT in requirements:
         requirements.remove(HYPEN_E_DOT)
 
     return requirements
 
+
 # Настройка установки пакета
-setup(  
+setup(
     name='student performance',
     version='0.0.1',
     author='Bulat Dzhamaliddinov',
