@@ -1,7 +1,6 @@
 import sys
 import src.logger
 
-
 # Функция для захвата и форматирования информации об ошибке
 def error_message_detail(error, error_detail:sys):
     # Извлечение информации об ошибке с использованием sys.exc_info()
