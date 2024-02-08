@@ -39,7 +39,7 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, models_params):
             model_params = models_params[model_name]
             
             # Инициализация объекта GridSearchCV для подбора гиперпараматеров модели
-            grid_model = GridSearchCV(model, model_params, cv=3)
+            grid_model = GridSearchCV(model, model_params, verbose=10, cv=3)
             # Обучение GridSearchCV на обучающих данных
             grid_model.fit(X_train,y_train)
 
@@ -58,4 +58,19 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, models_params):
         return report  
     
     except Exception as e:
+        # В случае ошибки создание пользовательского исключения с логированием
         raise CustomException(e, sys)
+
+
+# Функция для чтения файла в объект (препроцессор, модель)
+def load_object(file_path):
+    try:
+        # Чтение файла в объект
+        with open(file_path, "rb") as file:
+            # Используется pickle для чтения файла
+            return pickle.load(file)
+    
+    except Exception as e:
+        # В случае ошибки создание пользовательского исключения с логированием
+        raise CustomException(e, sys)
+    

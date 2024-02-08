@@ -1,8 +1,9 @@
-pandas
+pandas==3.0
 numpy
 seaborn
 matplotlib
 scikit-learn
 catboost
 xgboost
+Flask
 #-e .
