@@ -67,16 +67,17 @@ class DataIngestion:
 
 
 if __name__ == '__main__':
+    # Создание объекта DataIngestion для получения путей к данным
     obj = DataIngestion()
     train_data_path, test_data_path = obj.initiate_data_ingestion()
 
+    # Создание объекта DataTransformation для преобразования данных
     data_transformer = DataTransformation()
-    
-    preprocessor = data_transformer.initiate_data_transormation(
-        train_data_path, test_data_path)
    
-    train_data_arr, test_data_arr, preprocessor_file_path = data_transformer.initiate_data_transormation(
+    # Инициализация процесса преобразования данных и получение массивов данных
+    train_data_arr, test_data_arr, _ = data_transformer.initiate_data_transormation(
         train_data_path, test_data_path)
     
+    # Создание объекта ModelTrainer для обучения модели
     model_trainer = ModelTrainer()
     print(model_trainer.initiate_model_trainer(train_data_arr, test_data_arr))
